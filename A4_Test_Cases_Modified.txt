@@ -1,0 +1,86 @@
+(*
+ * Note: you need to change the following datatype and expressions as per your submitted code
+ * Please do the changes before you come for demo.
+ *)
+
+datatype exp = Int of int
+			| Bool of bool
+			| Var of string
+			| List of exp list
+			| Add of exp * exp
+			| Sub of exp * exp
+			| Mult of exp * exp
+			| Div of exp * exp
+			| Tup of exp list
+			| Proj of exp * int
+			| Gtr of exp * exp
+			| Lsr of exp * exp
+			| Eql of exp * exp
+			| Ifthenelse of exp * exp * exp
+			| Lambda of exp * exp
+			| App of exp * exp
+			| LetDE of exp * exp
+			| Assign of exp * exp
+			| Seq of exp list
+			| Par of exp list
+			| Localinend of exp list * exp
+			| Dec of exp list
+			| Ctup of closure list
+			| At of int
+			| Bind of exp
+			
+			| Restp of exp
+			| Tothisp of exp
+			| Rests of exp
+			| Tothiss of exp
+			| Restm of exp
+			| Tothism of exp
+			| Restd of exp
+			| Tothisd of exp
+			| Restg of exp
+			| Tothisg of exp
+			| Restl of exp
+			| Tothisl of exp
+			| Reste of exp
+			| Tothise of exp
+			| Ifthn of exp * exp
+			| Lets of exp*exp
+			and
+			closure = ACL of (exp * closure) list * exp
+
+
+
+krivine_machine(Var("z"),[("z",AnsClos([], compile(Int(3))))]);;
+
+krivine_machine(Add(Add(Int(2),Int(3)),Add(Int(2),Int(3))), []);;
+
+krivine_machine(Add(Int(2),Var("z")),[("z",AnsClos([], compile(Int(3))))]);;
+
+krivine_machine(App(Lambda("x",Add(Var("x"),Int(1))),Int(2)), []);;
+
+krivine_machine(App(Lambda("x",Mult(Var("x"),Add(Var("x"),Int(1)))),Int(2)), []);;
+
+krivine_machine(App(Lambda("x",App(Lambda("d",Mult(Var("d"),Int(2))),Int(2))),Int(2)), []);;
+
+krivine_machine(Ifte(GreatEq(Int(8),Int(2)),App(Lambda("x",Divide(Var("x"),Int(2))),Int(2)),App(Lambda("x",Mult(Var("x"),Add(Var("x"),Int(1)))),Int(2))), []);;
+
+krivine_machine(Ifte(GreatEq(Int(1),Int(2)),App(Lambda("x",Divide(Var("x"),Int(2))),Int(2)),App(Lambda("x",Mult(Var("x"),Add(Var("x"),Int(1)))),Int(2))), []);;
+
+krivine_machine(LetDE(Par[Assign(Var("a"),Int(2))],Add(Var("a"),Int(20))), []);;
+
+krivine_machine(LetDE(Seq[Assign(Var("a"),Int(2))],Add(Var("a"),Int(20))), []);;
+
+krivine_machine(Proj(Int(2), NTuple([Int(1); Int(2); Int(3)])), []);;
+
+krivine_machine(App(Lambda("x",LetDE(Par[Assign(Var("a"),Int(2))],Add(Var("a"),Var("x")))),Int(2)), []);;
+
+
+
+secd_machine(Proj(Int(2), NTuple([Int(12); Int(121); Int(33)])));;
+
+secd_machine(LetDE(Par([Assign(Var("a"),Int(1)); Assign(Var("b"),Int(2)); Assign(Var("c"),Int(3))]),Add(Add(Var("a"),Var("b")),Mult(Var("c"),Int(2)))));;
+
+secd_machine(Ifte(GreatEq(Int(4),Int(2)),Add(Int(1),Int(3)),Sub(Int(1),Int(3))));;
+
+secd_machine(LetDE(Seq([Par([Assign(Var("f"),Bool(false))]); Seq([Assign(Var("a"),Int(1)); Assign(Var("b"),Int(2)); Assign(Var("c"),Int(3))])]),Add(Add(Var("a"),Var("b")),Mult(Var("c"),Int(2)))));;
+
